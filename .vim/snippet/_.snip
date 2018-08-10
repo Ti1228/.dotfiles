@@ -1,0 +1,12 @@
+snippet	filename
+alias	fname
+	`expand("%:t")`
+
+snippet	filepath
+alias	fpath
+	`substitute(expand("%:p:h"),'¥','/',"g")`
+
+snippet	currentdir
+alias	pwd
+	`substitute(getcwd(),'¥','/',"g")`
+

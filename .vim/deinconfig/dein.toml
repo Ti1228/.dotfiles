@@ -1,0 +1,177 @@
+#====Syetem Requirement====
+#latexmk (for quickrun)
+#processing-java (for quickrun)
+#C/Migemo (for incsearch-migemo.vim)
+#verilator or icarus verilog (for verilog syntax check using syntastic)
+#
+#====Vim Environment Requirement====
+#none
+#
+#====Plugin Requirement====
+#incsearch.vim, vim-easymotion (for incsearch-easymotion.vim)
+#incsearch.vim, vimproc.vim (for incsearch-migemo.vim)
+#
+#====Plugin Building Requirement====
+#vimproc.vim
+#
+
+[[plugins]]
+repo='Shougo/dein.vim'
+#dein.config has already been loaded (in .vimrc).
+
+[[plugins]]
+repo='w0ng/vim-hybrid'
+hook_add='''
+    execute 'source' g:vim_dir.'/pluginconfig/vim-hybrid.config'
+'''
+
+[[plugins]]
+repo='Shougo/vimproc.vim'
+build='make'
+
+[[plugins]]
+repo='thinca/vim-quickrun'
+hook_add='''
+    execute 'source' g:vim_dir.'/pluginconfig/vim-quickrun.config'
+'''
+
+[[plugins]]
+repo='nathanaelkane/vim-indent-guides'
+hook_add='''
+    execute 'source' g:vim_dir.'/pluginconfig/vim-indent-guides.config'
+'''
+
+[[plugins]]
+repo='itchyny/lightline.vim'
+hook_add='''
+    execute 'source' g:vim_dir.'/pluginconfig/lightline.config'
+'''
+
+[[plugins]]
+repo='scrooloose/nerdcommenter'
+hook_add='''
+    execute 'source' g:vim_dir.'/pluginconfig/nerdcommenter.config'
+'''
+
+[[plugins]]
+repo='junegunn/vim-easy-align'
+hook_add='''
+    execute 'source' g:vim_dir.'/pluginconfig/vim-easy-align.config'
+'''
+
+[[plugins]]
+repo='simeji/winresizer'
+hook_add='''
+    execute 'source' g:vim_dir.'/pluginconfig/winresizer.config'
+'''
+
+[[plugins]]
+repo='LeafCage/yankround.vim'
+hook_add='''
+    execute 'source' g:vim_dir.'/pluginconfig/yankround.config'
+'''
+
+[[plugins]]
+repo='mbbill/undotree'
+hook_add='''
+    execute 'source' g:vim_dir.'/pluginconfig/undotree.config'
+'''
+
+#for denite.nvim or unite.vim
+[[plugins]]
+repo='Shougo/neomru.vim'
+hook_add= '''
+    execute 'source' g:vim_dir.'/pluginconfig/neomru.config'
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#[[plugins]]
+#repo='easymotion/vim-easymotion'
+#hook_add='''
+#    execute 'source' g:vim_dir.'/pluginconfig/vim-easymotion.config'
+#'''
+
+#[[plugins]]
+#repo='haya14busa/incsearch.vim'
+#if='has("gui_running")==0||g:ostype!="Mac"'
+#hook_add='''
+#    execute 'source' g:vim_dir.'/pluginconfig/incsearch.config'
+#'''
+
+#[[plugins]]
+#repo='haya14busa/incsearch-easymotion.vim'
+#if='has("gui_running")==0||g:ostype!="Mac"'
+#depends=['incsearch.vim','vim-easymotion']
+#hook_add='''
+#    execute 'source' g:vim_dir.'/pluginconfig/incsearch-easymotion.config'
+#'''
+
+#[[plugins]]
+#repo='haya14busa/incsearch-migemo.vim'
+#if='has("gui_running")==0||g:ostype!="Mac"'
+#depends=['incsearch.vim','vimproc.vim']
+##if='has("cmigemo")' <- cmigemoインストール済みでも本プラグインが起動しなくなるためとりあえずコメントアウト
+#hook_add='''
+#    execute 'source' g:vim_dir.'/pluginconfig/incsearch-migemo.config'
+#'''
+
+#[[plugins]]
+#repo='christoomey/vim-tmux-navigator'
+#hook_add='''
+#    execute 'source' g:vim_dir.'/pluginconfig/vim-tmux-navigator.config'
+#'''
+
+#[[plugins]]
+#repo='AndrewRadev/linediff.vim'
+#hook_add='''
+#    execute 'source' g:vim_dir.'/pluginconfig/linediff.config'
+#'''
+
+#[[plugins]]
+#repo='scrooloose/nerdtree'
+#hook_add= '''
+#    execute 'source' g:vim_dir.'/pluginconfig/nerdtree.config'
+#'''
+
+#[[plugins]]
+#repo='scrooloose/syntastic'
+#hook_add='''
+#    execute 'source' g:vim_dir.'/pluginconfig/syntastic.config'
+#'''
+
+#[[plugins]]
+#repo='munshkr/vim-tidal'
+#hook_add='''
+#'''
+
+
+
+
+
+
+
+
+
+
+
+
+#[[plugins]]
+#repo='w0rp/ale'
+#hook_add='''
+#'''
+

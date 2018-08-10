@@ -1,0 +1,228 @@
+######################### my .cshrc ################################
+#\!* や \!:* は"引数"
+
+umask 22        #permission 644
+
+set path=( $path \
+        $HOME/anaconda3/bin \
+        )
+##general
+set autologout
+#unset autologout       #勝手にシェルがログアウトしなくなる
+#set noclobber           #リダイレクトによる既存ファイルの上書きを禁止 -> tidalvimとの干渉を確認したためコメントアウト
+limit coredumpsize 0    #プログラムが異常終了した際にコアダンプファイルを作らない
+set symlinks=ignore     #カレントディレクトリがシンボリックリンクのときに実際のディレクトリに展開しない
+setenv SYN_ARCH linux   #謎(たぶんsynopsys関係)
+
+##文字コード
+setenv LESSCHARSET UTF-8
+#setenv	LESSCHARSET	ja_JP.EUC
+set dspmbyte = euc  #シェル上の文字コード
+#(set dspmbyte=utf8にすべきかも)
+
+##default application
+setenv LESS -Mgj10
+setenv PAGER less
+setenv EDITOR vim
+
+##keybind
+bindkey -e                              #emacs keybind
+bindkey ^R i-search-back                #コマンドヒストリから検索
+bindkey ^P history-search-backward      #打ち込んだ部分まで同一なコマンドをヒストリから検索
+bindkey ^N history-search-forward       #打ち込んだ部分まで同一なコマンドをヒストリから検索
+bindkey ^W backward-delete-word         #一単語消去
+bindkey ^D complete-word-fwd            #補完(順方向)
+bindkey ^U complete-word-back           #補完(逆方向)
+bindkey ^[^[[D vi-word-back             #[ESC]←でカーソル位置を単語単位で左へ
+bindkey ^[^[[C vi-word-fwd              #[ESC]→でカーソル位置を単語単位で右へ
+set ignoreeof                           #Ctrl+Dでログアウトしない
+
+##directory stack
+set dunique     #pushdコマンド実行時に、ディレクトリスタック内にすでに存在すればそれを消してからプッシュ(すなわち重複しないようにする)
+    #pushd dir でカレントディレクトリをスタックに保存しつつdirにcdする
+    #pushd     でカレントディレクトリをスタックに保存しつつスタック最上位のdirにcd
+    #dirs      でスタックの確認(スタックの0番は常にカレントディレクトリ)
+    #pushd +num でnum番のdirにcd
+    #popd  +num でnum番のdirを削除
+set pushdsilent #go to home when no argument for pushd(pushdsilentなしだと、最後のディレクトリスタックを出力する)
+
+##display
+set color           #補完時にカラー表示
+set colorcat        #メッセージのカラー表示
+
+##history
+set histdup=erase           #同じコマンドがヒストリにあれば消す
+set history=1000
+set savehist=(1000 merge)   #シェル終了時に保存するヒストリ数(複数ターミナルを開いたときはヒストリを統合)
+setenv GP_HISTFILESIZE 100  #gnuplotのコマンドライン編集履歴の保存数
+
+##completion
+set autolist=ambiguous          #tabキーで補完時、候補の表示も行う(1文字も補完されないときも一覧表示)
+set fignore=(.o \~ .aux)        #ファイル名補完の候補から外す対象を指定
+set complete=enhance            #大文字小文字を無視
+set autoexpand                  #ヒストリを使う際に補完
+set filec                       #cshでのファイル名補完機能をオン
+complete cd 'p/1/d/'            #cd時の補完対象をディレクトリに限定
+#set recexact                   #続けてタイプすればより長い単語に合致する場合でも、すでに入力と完全に一致する単語が存在すれば補完を終了
+set correct=cmd                 #コマンド実行時にコマンド訂正
+set showdots                    #ドットファイルも補完対象に
+#set autocorrect                #補完時にスペル訂正
+#set implicitcd                 #directory name as command (set implicitcd=verbose とすべきかも)
+
+##notification
+set notify          #ジョブの終了をすぐに知らせる
+set listjobs=long   #中断時にジョブを表示(長形式で)
+set noding          # disable the printing of 'DING!'
+set rmstar          #rm * するときにチェックする
+set nobeep          #ビープを鳴らさない
+set visiblebell     #ビープ時に画面を点滅
+
+##man
+##manページの色付け(エラーが出る)
+#setenv LESS_TERMCAP_mb `echotc md; echotc AF 1`
+#setenv LESS_TERMCAP_md `echotc md; echotc AF 1`
+#setenv LESS_TERMCAP_me `echotc me`
+#setenv LESS_TERMCAP_se `echotc me`
+#setenv LESS_TERMCAP_so `echotc md; echotc AF 3; echotc AB 4`
+#setenv LESS_TERMCAP_ue `echotc me`
+#setenv LESS_TERMCAP_us `echotc md; echotc AF 2`
+##manコマンドでマニュアルを表示するプログラムの指定
+setenv MANPAGER 'less -R'
+
+##プロンプトの設定(stty:標準入力に使用しているデバイスの入出力オプション)
+if ($?prompt) then
+    set prompt = "%{\e[36m%}${USER}@%m: %{\e[33m%}%~ %{\e[0m%}[%y/%W/%D(%d) %t]\n%{\e[32m%}%B>>%b "
+    stty -istrip cs8 -parenb
+    stty erase "^H"
+    #stty erase "^?" #^?:Del
+endif
+if ($TERM == "eterm") then
+    set prompt = "${USER}@%m:%~% "
+endif
+
+##env & alias
+switch (`uname`)
+case SunOS:
+    setenv LANG	ja
+    alias rm rm -i
+    alias cp cp -i
+    alias ls ls -F
+    alias mv mv- i
+    alias lv less
+    alias cd 'cd \!:* ; ls'
+breaksw
+default:
+    ##謎
+    #alias path 'readlink -f \!:*'
+    #alias chrome 'env LANG=ja_JP.eucJP google-chrome &'
+    #alias chrome 'env LANG=ja_JP.utf-8 google-chrome &'
+    alias gnreset 'gnome-shell --mode=user -r &'
+    #alias j jobs
+    #alias so source
+    #alias r rehash
+    #alias refresh rehash
+    #alias rmdup 'uniq \!:1 >! \!:1.tmp ; mv -f \!:1.tmp \!:1'
+    #alias du du -h
+    #alias screen 'set TERM screen; ""screen \!:*'
+    #alias print print.sh
+    #alias kghostview 'kghostview \!:* &'
+    #alias kghostview 'kghostview \!:* &'
+    alias picedit pstoedit -f emf
+
+    ##directory stack
+    #alias cd 'pushd '
+    #alias cd-- 'pushd +2'
+    #alias cd--- 'pushd +3'
+    #alias d 'dirs -v'
+
+    ##言語設定
+    setenv LANG ja_JP.UTF-8
+    #setenv LANG en_US.utf-8
+    #alias ja-euc 'setenv LANG ja_JP.eucjp'
+    #alias ja-utf 'setenv LANG ja_JP.utf8'
+    #alias en 'setenv LANG en_US.utf8'
+
+    ##ls
+    switch (`uname`)
+        case Darwin:
+            alias ls ls -G -h -F -t
+        breaksw
+        case Linux:
+            alias ls ls --color -h -F -t
+        breaksw
+    endsw
+    alias la ls -a
+    alias ll ls -l
+    alias ltr ls -ltr
+    alias lrt ls -ltr
+    alias ld 'ls -d */'
+
+    ##削除・移動・コピー
+    alias rm rm -i
+    #alias trash gvfs-trash
+    #alias delete trash 
+    #alias del trash 
+    alias mv mv -i
+    alias cp cp -i
+    alias cpr cp -r
+
+    ##エディタ
+    alias gedit 'gedit \!:* &'
+    #alias emacs 'emacs \!:* &'
+    #alias gvim 'gvim \!:* &'
+    #alias vi vim
+    alias vimr 'vim -R' #リードオンリーでvimを開く
+    alias nwemacs '\emacs -nw \!* &'
+
+    ##ssh
+    alias ssh ssh -X
+    alias xssh ssh -XC
+    #alias sshw sshwrap
+
+    ##資料作成
+    #alias latexs 'latex --src-specials'
+    #alias platexs 'platex --src-specials'
+    #alias pxdvi 'pxdvi \!:* &'
+    #alias xdvi 'xdvi \!:* &'
+    #alias mendeley 'mendeleydesktop --force-bundled-qt &'
+    alias inkscape 'inkscape \!* &'
+    #alias plot gnuplot -raise -persist
+    #alias gnuplot /usr/bin/gnuplot
+    #alias tgif 'tgif \!:* &'
+    #alias tgif 'env LANG=ja_JP.eucjp tgif \!:* &'
+    alias tgif 'env LANG=C tgif \!:* &' #tgif と打つとenv LANG=C tgif \!:* & と打ったことになる。env LANG=C:英語環境で実行
+    #alias office 'openoffice.org \!:* &'
+    #alias ooffice 'ooffice \!:* &'
+    alias acroread 'acroread \!:* &'
+    alias acroreado 'acroread -openInNewInstance'
+    alias evince 'evince \!:* &'
+    #alias okular 'okular \!:* &'
+    #alias okular 'okular \!:* >& /dev/null &'
+    alias gimp 'gimp \!* &'
+
+    ##vncサーバ
+    #alias vnc1280_16 vncserver -geometry 1280x800 -depth 16
+    #alias vnc1280_745_16 vncserver -geometry 1280x745 -depth 16
+    #alias vnc1280_24 vncserver -geometry 1280x800 -depth 24
+    #alias vnckill vncserver -kill
+    alias vncwide vncserver :1 -geometry 1920x1080
+    alias vncnote vncserver :1 -geometry 1366x768
+    alias vncmac  vncserver :1 -geometry 1440x900
+    alias vnckill vncserver -kill :1
+
+    ##CAD
+    #alias spice 'hspice64'
+
+    ##tools
+    alias google 'w3m google.co.jp' #googleをターミナル上で使う
+    alias calc 'gnome-calculator \!:*'
+    #alias calc 'gnome-calculator \!:* &'
+    alias time /usr/bin/time -p
+
+    ##tmux
+    alias tmuxns 'tmux new -s '
+    alias tmuxat 'tmux a -t '
+    alias tmuxls 'tmux ls '
+    alias tmuxks 'tmux kill-session -t'
+    alias tmuxksvr 'tmux kill-server'
+endsw

@@ -1,0 +1,96 @@
+snippet	template_lab
+alias	lab
+	\documentclass[uplatex, a4j, 11pt, dvipdfmx]{jsarticle} %章コマンドなし
+	%\documentclass[uplatex, report, a4j, 11pt, dvipdfmx]{jsbook} %章コマンドあり
+	%\setlength{\textwidth}{\fullwidth} %謎
+	\usepackage[top=30truemm, bottom=30truemm, left=25truemm, right=25truemm]{geometry} %ページレイアウトの詳細設定
+	\usepackage{graphicx} %図表挿入
+	\usepackage{color} %色の扱い
+	\usepackage{subcaption} %複数の図を1つの図環境にいれてラベルを割り振り
+	\usepackage{lscape} %横向きページを作成
+	\usepackage{amsmath, amssymb} %数式入力
+	\usepackage{cases} %各々の連立方程式に数式番号を割り振り
+	\usepackage[at]{easylist} %箇条書きを簡単化
+	\usepackage{siunitx} %SI単位系
+	\usepackage{bm} %太字ベクトル
+	\usepackage{here} %図表を現在位置に強制配置できる
+	\usepackage{fancyhdr} %ヘッダ
+	\usepackage[T1]{fontenc} %フォントエンコーディング
+	\usepackage{lmodern} %LatinModernフォント
+	\usepackage[utf8]{inputenc} %インプットエンコーディング
+	\usepackage[l2tabu, orthodox]{nag} %古いパッケージやコマンドのチェック
+    \usepackage[all, warning]{onlyamsmath} %amsmathが提供しない数式環境に対して警告
+	\usepackage[bookmarksnumbered=true]{hyperref} %しおり作成
+	\usepackage{pxjahyper} %しおりを日本語対応に
+	\usepackage{cite} %文献参照
+	%
+	%
+	\graphicspath{{../../figures/}} %挿入図表のパス
+	%
+	%
+	%ヘッダ・フッタの設定
+	\pagestyle{fancy}
+	\renewcommand{\headrulewidth}{0pt} %ヘッダの罫線をなくす
+	%\renewcommand{\footrulewidth}{0pt} %フッタの罫線をなくす
+	\lhead{{\footnotesize ${1:mtg}資料}} %左側ヘッダ
+	\chead{} %中央ヘッダ
+	\rhead{} %右側ヘッダ
+	%\lfoot{} %左側フッタ
+	%\cfoot{} %中央フッタ
+	%\rfoot{} %右側フッタ
+	%
+	%
+	%表紙
+	%\title{H29 卒業論文\\\\
+	%ビアスイッチ}
+	%\author{name}
+	%\date{2017年1月}
+	%
+	%
+	\begin{document}
+	%\maketitle %表紙作成時のみコメントアウトを外す
+	\thispagestyle{empty} %このページのみヘッダ・フッダなし
+	%
+	%
+	\begin{center}
+		{\LARGE ${2:#:TITLE}}
+	\end{center}
+	\begin{flushright}
+	M1 ${3:#:name}\\\\
+	${4:#:2017}年${5:#:6}月${6:#:28}日
+	\end{flushright}
+	%
+	%
+	\section{${7:#:TITLE}}
+	${8}
+	\section{To Do}
+	${9}
+	%参考文献
+	%\bibliographystyle{jplain}
+	%\bibliographystyle{IEEEtran}
+	%\bibliography{../../bibliography}
+	\end{document}
+
+snippet	minipage_figures
+alias	figures
+	\begin{figure}
+		\centering
+			\begin{tabular}{${1:cc}}
+	%
+			\begin{minipage}{${2:0.5}\hsize}
+				\centering
+					\includegraphics[${3:height=}${4:40mm}]{${5:#:VLSI.eps}}
+					\caption{${6:#:TITLE}}
+					\label{fig:${7:#:label}}
+			\end{minipage}
+	%
+			\begin{minipage}{${8:0.5}\hsize}
+				\centering
+					\includegraphics[${9:height=}${10:40mm}]{${11:#:FPGA.eps}}
+					\caption{${12:#:TITLE}}
+					\label{fig:${13:#:label}}
+			\end{minipage}
+	%
+			\end{tabular}
+	\end{figure}
+	${0}

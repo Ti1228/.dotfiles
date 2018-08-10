@@ -1,0 +1,4 @@
+#!/bin/sh
+
+xmodmap ~/.xmodmap
+
