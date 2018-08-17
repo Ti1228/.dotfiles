@@ -46,14 +46,14 @@ hook_post_source='''
     execute 'source' g:vim_dir.'/pluginconfig/unite_post_source.config'
 '''
 
-#if cannot use neocomplete.vim
-[[plugins]]
-repo='Shougo/neocomplcache.vim'
-if='(!has("lua") || v:version < 703) || (has("gui_running")==1 && g:ostype=="Linux")'
-on_event = ['VimEnter']
-hook_source= '''
-    execute 'source' g:vim_dir.'/pluginconfig/neocomplcache.config'
-'''
+##if cannot use neocomplete.vim
+#[[plugins]]
+#repo='Shougo/neocomplcache.vim'
+#if='(!has("lua") || v:version < 703) || (has("gui_running")==1 && g:ostype=="Linux")'
+#on_event = ['VimEnter']
+#hook_source= '''
+#    execute 'source' g:vim_dir.'/pluginconfig/neocomplcache.config'
+#'''
 
 [[plugins]]
 repo='tomasr/molokai'
