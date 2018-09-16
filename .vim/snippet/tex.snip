@@ -99,7 +99,175 @@ alias	figures
 snippet	template_corePR
 alias	core
 	\documentclass[uplatex, a4j, 11pt, dvipdfmx]{jsarticle} %章コマンドなし
-	%\documentclass[uplatex, report, a4j, 11pt, dvipdfmx]{jsbook} %章コマンドあり
+	\usepackage[top=30truemm, bottom=30truemm, left=25truemm, right=25truemm]{geometry} %ページレイアウトの詳細設定
+	\usepackage{graphicx} %図表挿入
+	\usepackage{color} %色の扱い
+	\usepackage{subcaption} %複数の図を1つの図環境にいれてラベルを割り振り
+	\usepackage{lscape} %横向きページを作成
+	\usepackage{amsmath, amssymb} %数式入力
+	\usepackage{cases} %各々の連立方程式に数式番号を割り振り
+	\usepackage[at]{easylist} %箇条書きを簡単化
+	\usepackage{siunitx} %SI単位系
+	\usepackage{bm} %太字ベクトル
+	\usepackage{here} %図表を現在位置に強制配置できる
+	\usepackage{fancyhdr} %ヘッダ
+	\usepackage[T1]{fontenc} %フォントエンコーディング
+	\usepackage{lmodern} %LatinModernフォント
+	\usepackage[utf8]{inputenc} %インプットエンコーディング
+	\usepackage[l2tabu, orthodox]{nag} %古いパッケージやコマンドのチェック
+    \usepackage[all, warning]{onlyamsmath} %amsmathが提供しない数式環境に対して警告
+	\usepackage[bookmarksnumbered=true]{hyperref} %しおり作成
+	\usepackage{pxjahyper} %しおりを日本語対応に
+	\usepackage{cite} %文献参照
+	%
+	%
+	\graphicspath{{../../figures/}} %挿入図表のパス
+	%
+	%
+	%ヘッダ・フッタの設定
+	\pagestyle{fancy}
+	\renewcommand{\headrulewidth}{0pt} %ヘッダの罫線をなくす
+	%\renewcommand{\footrulewidth}{0pt} %フッタの罫線をなくす
+	\lhead{{\footnotesize 資料}} %左側ヘッダ
+	\chead{} %中央ヘッダ
+	\rhead{} %右側ヘッダ
+	%\lfoot{} %左側フッタ
+	%\cfoot{} %中央フッタ
+	%\rfoot{} %右側フッタ
+	%
+	\begin{document}
+	\thispagestyle{empty} %このページのみヘッダ・フッダなし
+	%
+	%
+	\begin{center}
+		{\LARGE ${1:#:occupation}}
+	\end{center}
+	%
+	%
+	\section{STEP1 志望職種の活動説明文}
+	私は御社の${2:#:occupation}を志望しています。
+	${3:#:occupation}の仕事は、
+	\begin{quote}
+	${4}
+	\end{quote}
+	と認識しています。
+	
+	\section{STEP2 志望職種で必要なコンピテンシーの説明文}
+	${5:#:occupation}の仕事では、
+	\begin{quote}
+	${6}
+	\end{quote}
+	等が求められると考えています。
+	
+	\section{STEP3 志望職種で必要なコンピテンシーのうち持っているコンピテンシーの理由説明}
+	\begin{enumerate}
+	${7}
+	\end{enumerate}
+	
+	\section{STEP4 志望職種で必要なコンピテンシーのうち持っていないコンピテンシーの克服方法}
+	しかしながら、${8:#:lacking_competency}についてはまだまだ不十分だと認識しています。そこで
+	\begin{enumerate}
+	${8}
+	\end{enumerate}
+	
+	\section{さいごに}
+	私は、御社の${9:#:competency}として必ず貢献できると確信していますので、採用の程、よろしくお願いいたします。
+	
+	\end{document}
+
+snippet	template_competency_step3
+alias	step3
+	\documentclass[uplatex, a4j, 11pt, dvipdfmx]{jsarticle} %章コマンドなし
+	\usepackage[top=30truemm, bottom=30truemm, left=25truemm, right=25truemm]{geometry} %ページレイアウトの詳細設定
+	\usepackage{graphicx} %図表挿入
+	\usepackage{color} %色の扱い
+	\usepackage{subcaption} %複数の図を1つの図環境にいれてラベルを割り振り
+	\usepackage{lscape} %横向きページを作成
+	\usepackage{amsmath, amssymb} %数式入力
+	\usepackage{cases} %各々の連立方程式に数式番号を割り振り
+	\usepackage[at]{easylist} %箇条書きを簡単化
+	\usepackage{siunitx} %SI単位系
+	\usepackage{bm} %太字ベクトル
+	\usepackage{here} %図表を現在位置に強制配置できる
+	\usepackage{fancyhdr} %ヘッダ
+	\usepackage[T1]{fontenc} %フォントエンコーディング
+	\usepackage{lmodern} %LatinModernフォント
+	\usepackage[utf8]{inputenc} %インプットエンコーディング
+	\usepackage[l2tabu, orthodox]{nag} %古いパッケージやコマンドのチェック
+    \usepackage[all, warning]{onlyamsmath} %amsmathが提供しない数式環境に対して警告
+	\usepackage[bookmarksnumbered=true]{hyperref} %しおり作成
+	\usepackage{pxjahyper} %しおりを日本語対応に
+	\usepackage{cite} %文献参照
+	%
+	%
+	\graphicspath{{../../figures/}} %挿入図表のパス
+	%
+	%
+	%ヘッダ・フッタの設定
+	\pagestyle{fancy}
+	\renewcommand{\headrulewidth}{0pt} %ヘッダの罫線をなくす
+	%\renewcommand{\footrulewidth}{0pt} %フッタの罫線をなくす
+	\lhead{{\footnotesize 資料}} %左側ヘッダ
+	\chead{} %中央ヘッダ
+	\rhead{} %右側ヘッダ
+	%\lfoot{} %左側フッタ
+	%\cfoot{} %中央フッタ
+	%\rfoot{} %右側フッタ
+	%
+	%
+	\begin{document}
+	\thispagestyle{empty} %このページのみヘッダ・フッダなし
+	%
+	%
+	\begin{center}
+		{\LARGE ${1:#:competency}}
+	\end{center}
+	%
+	%
+	\section{STEP3 志望職種で必要なコンピテンシーのうち持っているコンピテンシーの理由説明}
+	\begin{table}[hbp]
+		\centering
+		\scalebox{0.9}{
+		\begin{tabular}{|p{0.14\hsize}|p{0.16\hsize}|p{0.52\hsize}|p{0.18\hsize}|} \hline
+		項目                         & 前につける文章               & 分析結果 & 後ろにつける文章             \\\ \hline
+		分析対象コンピテンシー       & 私は、                       & ${2}     & を                           \\\ \hline
+		経験・活動                   &                              & ${3}     & で身につけたと考えています。 \\\ \hline
+		役割・目的・責任             & その経験での私の役割・目的は & ${4}     & ことでした。                 \\\ \hline
+		課題                         & しかしながら、               & ${5}     &                              \\\ \hline
+		思考・行動の理由             & そこで私は、                 & ${6}     &                              \\\ \hline
+		思考・行動                   &                              & ${7}     &                              \\\ \hline
+		成果                         & その結果、                   & ${8}     &                              \\\ \hline
+		経験から学んだこと(ノウハウ) & 私はこの経験から、           & ${9}     & を学ぶことができ、           \\\ \hline
+		分析対象コンピテンシー       &                              & ${10}    & を身につけたと感じています。 \\\ \hline
+		\end{tabular}
+        }
+	\end{table}
+	
+	\end{document}
+
+snippet	competency_step3_table
+alias	step3_table
+	\begin{table}[hbp]
+		\centering
+		\scalebox{0.9}{
+		\begin{tabular}{|p{0.14\hsize}|p{0.16\hsize}|p{0.52\hsize}|p{0.18\hsize}|} \hline
+		項目                         & 前につける文章               & 分析結果 & 後ろにつける文章             \\\ \hline
+		分析対象コンピテンシー       & 私は、                       & ${1}     & を                           \\\ \hline
+		経験・活動                   &                              & ${2}     & で身につけたと考えています。 \\\ \hline
+		役割・目的・責任             & その経験での私の役割・目的は & ${3}     & ことでした。                 \\\ \hline
+		課題                         & しかしながら、               & ${4}     &                              \\\ \hline
+		思考・行動の理由             & そこで私は、                 & ${5}     &                              \\\ \hline
+		思考・行動                   &                              & ${6}     &                              \\\ \hline
+		成果                         & その結果、                   & ${7}     &                              \\\ \hline
+		経験から学んだこと(ノウハウ) & 私はこの経験から、           & ${8}     & を学ぶことができ、           \\\ \hline
+		分析対象コンピテンシー       &                              & ${9}     & を身につけたと感じています。 \\\ \hline
+		\end{tabular}
+        }
+	\end{table}
+
+snippet	template_competency_step4
+alias	step4
+	\documentclass[uplatex, a4j, 11pt, dvipdfmx]{jsarticle} %章コマンドなし
 	%\setlength{\textwidth}{\fullwidth} %謎
 	\usepackage[top=30truemm, bottom=30truemm, left=25truemm, right=25truemm]{geometry} %ページレイアウトの詳細設定
 	\usepackage{graphicx} %図表挿入
@@ -138,94 +306,36 @@ alias	core
 	%\rfoot{} %右側フッタ
 	%
 	%
-	%表紙
-	%\title{H29 卒業論文\\
-	%ビアスイッチ}
-	%\author{name}
-	%\date{2017年1月}
-	%
-	%
 	\begin{document}
-	%\maketitle %表紙作成時のみコメントアウトを外す
 	\thispagestyle{empty} %このページのみヘッダ・フッダなし
 	%
 	%
 	\begin{center}
-		{\LARGE ${1:#:occupation}}
+		{\LARGE ${1:#:competency}}
 	\end{center}
 	%
 	%
-	\section{STEP1 志望職種の活動説明文}
-	私は御社の${2:#:occupation}を志望しています。
-	${3:#:occupation}の仕事は、
-	\begin{quote}
-	${4}
-	\end{quote}
-	と認識しています。
-	
-	\section{STEP2 志望職種で必要なコンピテンシーの説明文}
-	${5:#:occupation}の仕事では、
-	\begin{quote}
-	${6}
-	\end{quote}
-	等が求められると考えています。
-	
-	\section{STEP3 志望職種で必要なコンピテンシーのうち持っているコンピテンシーの理由説明}
-	\begin{table}[hbp]
-		\centering
-		\caption{STEP3}
-		\scalebox{0.9}{
-		\begin{tabular}{|p{0.14\hsize}|p{0.16\hsize}|p{0.52\hsize}|p{0.18\hsize}|} \hline
-		項目                         & 前につける文章               & 分析結果 & 後ろにつける文章             \\ \hline
-		分析対象コンピテンシー       & 私は、                       & ${7}  & を                           \\ \hline
-		経験・活動                   &                              & ${8}  & で身につけたと考えています。 \\ \hline
-		役割・目的・責任             & その経験での私の役割・目的は & ${9}  & ことでした。                 \\ \hline
-		課題                         & しかしながら、               & ${10} &                              \\ \hline
-		思考・行動の理由             & そこで私は、                 & ${11} &                              \\ \hline
-		思考・行動                   &                              & ${12} &                              \\ \hline
-		成果                         & その結果、                   & ${13} &                              \\ \hline
-		経験から学んだこと(ノウハウ) & 私はこの経験から、           & ${14} & を学ぶことができ、           \\ \hline
-		分析対象コンピテンシー       &                              & ${15} & を身につけたと感じています。 \\ \hline
-		\end{tabular}
-        }
-	\end{table}
-	${16}
 	\section{STEP4 志望職種で必要なコンピテンシーのうち持っていないコンピテンシーの克服方法}
 	\begin{table}[hbp]
 		\centering
-		\caption{STEP4}
 		\scalebox{0.9}{
-		\begin{tabular}{|p{0.2\hsize}|p{0.1\hsize}|p{0.2\hsize}|p{0.1\hsize}|p{0.4\hsize}|} \hline
-			コンピテンシー & いつ  & どんな活動で & 獲得方法 & 活動の具体化 \\ \hline
-			${17}          & ${18} & ${19}        & ${20}    & ${21}        \\ \hline
+		\begin{tabular}{|p{0.15\hsize}|p{0.1\hsize}|p{0.15\hsize}|p{0.3\hsize}|p{0.3\hsize}|} \hline
+		コンピテンシー & いつ & どんな活動で & 獲得方法 & 活動の具体化 \\\ \hline
+		  ${2}         & ${3} & ${4}         & ${5}     & ${6}         \\\ \hline
 		\end{tabular}
 		}
 	\end{table}
 	
-	%参考文献
-	%\bibliographystyle{jplain}
-	%\bibliographystyle{IEEEtran}
-	%\bibliography{../../bibliography}
 	\end{document}
 
-snippet	competency_figures
-alias	competency
+snippet	competency_step4_table
+alias	step4_table
 	\begin{table}[hbp]
 		\centering
-		\caption{STEP3}
 		\scalebox{0.9}{
-		\begin{tabular}{|p{0.14\hsize}|p{0.16\hsize}|p{0.52\hsize}|p{0.18\hsize}|} \hline
-		項目                         & 前につける文章               & 分析結果 & 後ろにつける文章             \\\ \hline
-		分析対象コンピテンシー       & 私は、                       & ${1}     & を                           \\\ \hline
-		経験・活動                   &                              & ${2}     & で身につけたと考えています。 \\\ \hline
-		役割・目的・責任             & その経験での私の役割・目的は & ${3}     & ことでした。                 \\\ \hline
-		課題                         & しかしながら、               & ${4}     &                              \\\ \hline
-		思考・行動の理由             & そこで私は、                 & ${5}     &                              \\\ \hline
-		思考・行動                   &                              & ${6}     &                              \\\ \hline
-		成果                         & その結果、                   & ${7}     &                              \\\ \hline
-		経験から学んだこと(ノウハウ) & 私はこの経験から、           & ${8}     & を学ぶことができ、           \\\ \hline
-		分析対象コンピテンシー       &                              & ${9}     & を身につけたと感じています。 \\\ \hline
+		\begin{tabular}{|p{0.15\hsize}|p{0.1\hsize}|p{0.15\hsize}|p{0.3\hsize}|p{0.3\hsize}|} \hline
+		コンピテンシー & いつ & どんな活動で & 獲得方法 & 活動の具体化 \\\ \hline
+		  ${1}         & ${2} & ${3}         & ${4}     & ${5}         \\\ \hline
 		\end{tabular}
-        }
+		}
 	\end{table}
-
