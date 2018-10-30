@@ -79,7 +79,7 @@ let g:quickrun_config.tmptex={
 \}
 
 "全体コンパイル
-nnoremap <leader>r :QuickRun -type tex<CR>
+nnoremap <silent> <leader>r :QuickRun -type tex<CR>
 
 "部分コンパイル
 vnoremap <buffer> <leader>r :QuickRun -mode v -type tmptex<CR>

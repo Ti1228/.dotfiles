@@ -72,6 +72,14 @@ hook_post_source='''
 
 
 
+#Markdown編集時に読み込み
+[[plugins]]
+repo='previm/previm'
+on_ft='markdown'
+hook_source='''
+    execute 'source' g:vim_dir.'/pluginconfig/previm.config'
+'''
+
 
 
 
